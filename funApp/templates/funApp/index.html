@@ -6,6 +6,8 @@
 </head>
 <body>
  Hello World !
+ {% if user.is_authenticated %}
+
  <form method="post">
  	{% csrf_token %}
  	{{ form.as_p }}
@@ -23,8 +25,11 @@
  	{% endfor %}
  	</ul>
  </section>
- {% block content%}
- {% endblock %}
  <hr>
+
+ <a href="{% url 'logout' %}">Logout</a>
+  {% endif %}
+   {% block content%}
+  {% endblock %}
 </body>
 </html>

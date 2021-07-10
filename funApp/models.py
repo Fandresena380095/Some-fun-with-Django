@@ -82,7 +82,7 @@ class Flight(models.Model):
 	destination = models.ForeignKey(Airport, on_delete=models.SET_NULL, null=True, related_name="arrivals") 
 	duration = models.IntegerField()
 	date = models.DateTimeField(auto_now_add=True, null=True)
-	passengers = models.ManyToManyField(Passenger,  null=True)
+	passengers = models.ManyToManyField(Passenger)
 	def __str__(self):
 		return f'Flight number {self.id}: from {self.origin} to {self.destination}.'
 
@@ -113,7 +113,7 @@ class Chapiteau_activity(models.Model):
 
 class Chapiteau_coordinator(models.Model):
 	customer_name = models.ForeignKey(Chapiteau_customer, null=True , on_delete= models.SET_NULL , related_name='customer')
-	activity_name = models.ManyToManyField(Chapiteau_activity, null=True  , related_name='activity')
+	activity_name = models.ManyToManyField(Chapiteau_activity, related_name='activity')
 
 
 	def __str__(self):

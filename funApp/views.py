@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from .models import User_Database
-from .forms import User_Form
+from .forms import *
 from django.contrib import messages
 
 # Create your views here.
@@ -17,3 +17,18 @@ def index(request):
 		"form": form,
 		"users": User_Database.objects.all()
 		 })
+
+
+def register(request):
+	form = registerForm()
+	if request.method == "POST":
+		form = registerForm(request.POST)
+		form.save()
+
+		redirect("funApp/index.html")
+	else:
+		form = registerForm()
+
+	return render(request, "funApp/home.html", {
+		"form": form
+		})
