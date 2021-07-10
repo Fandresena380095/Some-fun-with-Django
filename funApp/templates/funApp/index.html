@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Hello Forms</title>
+</head>
+<body>
+ Hello World !
+ <form method="post">
+ 	{% csrf_token %}
+ 	{{ form.as_p }}
+ 	<button name = "submit">Submit</button>
+ </form>
+<hr>
+ <section>
+ 	<ul>
+ 	{% for u in users %}
+ 	<li>
+ 		User number {{ u.id }} <br>
+ 		Name: {{ u.name }}, <br>
+ 		Email: {{ u.email }}
+ 	</li>
+ 	{% endfor %}
+ 	</ul>
+ </section>
+ {% block content%}
+ {% endblock %}
+ <hr>
+</body>
+</html>
