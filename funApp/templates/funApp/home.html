@@ -3,8 +3,18 @@
  {% block content%}
  <form method="post" action=''>
     {% csrf_token %}
-    {{ form.as_p }}
+    
+    {{ form.username.label}} <br>
+    {{ form.username }} <br>
+
+    {{ form.password1.label}} <br>
+    {{ form.password1}} <br>
+
+    {{ form.password2.label}} <br>
+    {{ form.password2}} <br>
+
 <button type="submit" class="btn">Register</button>
+
 </form>
  {% endblock %} 
 

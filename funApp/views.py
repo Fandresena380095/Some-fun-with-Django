@@ -28,9 +28,8 @@ def register(request):
 		if form.is_valid():
 			print(form)
 			form.save()
-
-		return redirect("/index/")
-		
+			return redirect("index")
+			
 	else:
 		form = registerForm()
 
