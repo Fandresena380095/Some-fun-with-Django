@@ -2,6 +2,8 @@ from django.shortcuts import render , redirect
 from .models import User_Database
 from .forms import *
 from django.contrib import messages
+from django.contrib.auth import login , authenticate
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 def index(request):
@@ -20,11 +22,14 @@ def index(request):
 
 
 def register(request):
-	form = registerForm()
+
 	if request.method == "POST":
 		form = registerForm(request.POST)
-		form.save()
-		return redirect("/index")
+		if form.is_valid():
+			print(form)
+			form.save()
+
+		return redirect("/index/")
 		
 	else:
 		form = registerForm()
