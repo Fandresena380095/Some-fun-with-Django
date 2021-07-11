@@ -24,8 +24,8 @@ def register(request):
 	if request.method == "POST":
 		form = registerForm(request.POST)
 		form.save()
-
-		redirect("funApp/index.html")
+		return redirect("/index")
+		
 	else:
 		form = registerForm()
 
