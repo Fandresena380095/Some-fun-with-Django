@@ -16,9 +16,10 @@ def index(request):
 	# 	message = 'Hello Admin'
 	mainUser = User.objects.get(username ="jojo")
 	secondUser = User.objects.get(username ="rara")
+	message = "Welcome"
 
 	form = User_Form()
-#limit access to a user : 
+#limit access to a user : request.user.username.startswith(<something>)
 	if request.method == "POST" and request.user.username.startswith('jojo'):
 		form_data = User_Form(request.POST)
 		if form_data.is_valid():
@@ -26,7 +27,6 @@ def index(request):
 			message = "Cool"
 
 	else :
-		message = "Unfortunately You don't have permissions"
 		form = User_Form()
 	return render(request, "funApp/index.html", {
 		"form": form,
