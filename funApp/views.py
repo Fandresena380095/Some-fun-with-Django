@@ -60,9 +60,10 @@ def login2(request):
 
 	if request.method == "POST":
 		name = request.POST.get('name')
+		name2 = request.POST['name']
 		email = request.POST.get('email')
 		password = request.POST.get('password')
-		print(name, email, password)
+		print(name,name2, email, password)
 		user = User.objects.create_user(name, email, password)
 		user.save()
 
