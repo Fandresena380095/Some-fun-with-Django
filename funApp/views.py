@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from .models import User_Database
 from .forms import *
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User , Group
 from django.contrib import messages
 from django.contrib.auth import login , authenticate
 from django.contrib.auth.forms import UserCreationForm
@@ -44,7 +44,11 @@ def register(request):
 		form = registerForm(request.POST)
 		if form.is_valid():
 			print(form)
-			form.save()
+			user = form.save()
+			username = form.cleaned_data.get('username')
+
+			group = Group.objects.get(name="customer") #Automatically associated as a customer
+			user.groups.add(group)
 			return redirect("index")
 				
 	else:
