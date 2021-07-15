@@ -11,17 +11,17 @@ from .decorators import *
 
 # Create your views here.
 @login_required(login_url='login')
+@allowed_users(allowed_roles = ["admin"] ) 
 def index(request):
 	# user = authenticate(username="jojo", password="jojo1379")
 	# if user is not None :
-	# 	message = 'Hello Admin'
-	mainUser = User.objects.get(username ="jojo")
-	secondUser = User.objects.get(username ="rara")
+	# message = 'Hello Admin'
+	# mainUser = User.objects.get(username ="jojo")
+	# secondUser = User.objects.get(username ="rara")
 	message = "Welcome"
-
 	form = User_Form()
-#limit access to a user : request.user.username.startswith(<something>)
-	if request.method == "POST" and request.user.username.startswith('jojo'):
+#limit access to a user : request.user.username.startswith(<something>) -- not so good
+	if request.method == "POST" :
 		form_data = User_Form(request.POST)
 		if form_data.is_valid():
 			form_data.save()
@@ -55,6 +55,7 @@ def register(request):
 		})
 
 
+@unauthenticated_user
 def login2(request):
 
 	if request.method == "POST":
@@ -67,9 +68,6 @@ def login2(request):
 		user.save()
 
 		return redirect("index")
-
-
-
 
 	else:
 		return render(request , 'funApp/login2.html', {}) 
