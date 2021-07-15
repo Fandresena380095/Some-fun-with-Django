@@ -7,6 +7,7 @@ from django.contrib.auth import login , authenticate
 from django.contrib.auth.forms import UserCreationForm
 #To Restrain a view form being seen if not logged in 
 from django.contrib.auth.decorators import login_required
+from .decorators import * 
 
 # Create your views here.
 @login_required(login_url='login')
@@ -35,25 +36,23 @@ def index(request):
 		 })
 
 
+@unauthenticated_user
 def register(request):
 	#When the user is already logged in 
-	if request.user.is_authenticated:
-		return redirect('index')
-
-	else:
-		if request.method == "POST":
-			form = registerForm(request.POST)
-			if form.is_valid():
-				print(form)
-				form.save()
-				return redirect("index")
+	
+	if request.method == "POST":
+		form = registerForm(request.POST)
+		if form.is_valid():
+			print(form)
+			form.save()
+			return redirect("index")
 				
-		else:
-			form = registerForm()
+	else:
+		form = registerForm()
 
-		return render(request, "funApp/home.html", {
-			"form": form
-			})
+	return render(request, "funApp/home.html", {
+		"form": form
+		})
 
 
 def login2(request):
